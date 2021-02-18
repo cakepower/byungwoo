@@ -3,15 +3,19 @@ let strip = neopixel.create(DigitalPin.P7, 8, NeoPixelMode.RGB)
 serial.redirectToUSB()
 serial.setBaudRate(BaudRate.BaudRate115200)
 let start = input.runningTime()
+let newtime = 0
 basic.forever(function () {
-    time = start - input.runningTime()
+	
+})
+basic.forever(function () {
+    time = Math.round((start - input.runningTime()) / 10)
     strip.showColor(neopixel.rgb(pins.map(
     pins.analogReadPin(AnalogPin.P3),
     0,
     1023,
     0,
     255
-    ), time % 255, 255))
+    ), time, 255 - time))
     pins.servoWritePin(AnalogPin.P5, pins.map(
     pins.analogReadPin(AnalogPin.P3),
     0,
@@ -35,7 +39,4 @@ basic.forever(function () {
     ))
     serial.writeNumber(pins.analogReadPin(AnalogPin.P3))
     serial.writeLine("")
-})
-basic.forever(function () {
-	
 })
